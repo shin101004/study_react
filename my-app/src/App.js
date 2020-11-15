@@ -1,14 +1,16 @@
-import React, {
-  useRef, useState
-} from 'react';
-import Hello from './hello';
+import React, { useRef, useState, useMemo, useCallback } from 'react';
+// import Hello from './hello';
 import './App.css'
 // import Wrapper from './Wrapper';
-import Counter from './Counter';
-import InputSample from './InputSample';
+// import Counter from './Counter';
+// import InputSample from './InputSample';
 import UserList from './UserList';
 import CreateUser from './createUser';
 
+function countActiveUsers(users){
+  console.log('활성 사용자 수를 세는 중..');
+  return users.filter(user=>user.active).length;
+}
 function App() {
   const [inputs, setInputs] = useState({
     username : '',
@@ -17,13 +19,13 @@ function App() {
 
   const {username,email} = inputs;
 
-  const onChange=(e)=>{
+  const onChange=useCallback((e)=>{
     const {name,value} = e.target;
     setInputs({
       ...inputs,
       [name] : value
     })
-  }
+  },[inputs]);
 
   const [users,setUsers] = useState([
     {
@@ -48,7 +50,7 @@ function App() {
 
   const nextId = useRef(4);
 
-  const onCreate =()=>{
+  const onCreate =useCallback(()=>{
     const user = {
       id : nextId.current,
       username,
@@ -61,34 +63,30 @@ function App() {
     })
       // console.log(nextId.current);
       nextId.current+=1;
-  };
+  },[username,email,users]);
 
-  const onRemove = id=>{
+  const onRemove = useCallback(id=>{
     setUsers(users.filter(user=>user.id!==id));
-  }
+  },[users]);
 
-  const onColor = id =>{
-    setUsers(users.map(user=>user.id===id 
+  const onColor = useCallback(id =>{
+    setUsers(users.map(
+      user=>user.id===id 
       ? {...user, active: !user.active}
       : user));
-  }
+  },[users]);
 
-  const name = '재민'
+  const count = useMemo(()=>countActiveUsers(users), [users]);
   return ( 
   <> 
-      <Hello name="react" color="red" isSpecial={true}/>
-     <Hello color="pink"/>
-      {/*주석은 이렇게 */ } 
-      <div> JS로 값을 불러 올 땐 이렇게 {name}</div>
-     <Counter /> 
-     <InputSample/>
       <CreateUser 
       username={username}
        email={email} 
        onChange={onChange} 
        onCreate={onCreate}
       />
-      <UserList users = {users} onRemove={onRemove} onColor={onColor}/> 
+      <UserList users = {users} onRemove={onRemove} onColor={onColor}/>
+      <div>활성 사용자 수 : {count}</div>
     </>
   );
 }
