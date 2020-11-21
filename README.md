@@ -7,8 +7,8 @@
 NomadCoders - react - Movie Web Services
 1) State를 다룰 때에는 class형의 Component를 작성할 것
 
-###Screenshots
-------------
+Screenshots
+
 ![스크린샷 2020-11-21 오후 8 59 52](https://user-images.githubusercontent.com/61345090/99876792-8078ea80-2c3c-11eb-904f-1403619bbba5.png)
 
 2) Component render 시에 React 내부 동작 순서
@@ -28,7 +28,7 @@ NomadCoders - react - Movie Web Services
 * 타입 확인을 위해 오류처리 기능
 * 사용시에 반드시 import PropTypes from "prop-types" 선언;
 
-###Screenshot
-----------
+Screenshot
+
 <img width="470" alt="스크린샷 2020-11-21 오후 9 05 47" src="https://user-images.githubusercontent.com/61345090/99876884-54119e00-2c3d-11eb-9109-0338690a1605.png">
 
