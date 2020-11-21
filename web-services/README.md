@@ -28,3 +28,5 @@ Nomadcoders - react - web services
 
 
 5. Mounting, Updating, Unmounting
+
+6. state를 다룰 필요가 없을때 class > function 형태의 component로 돌아가면 된다.
