@@ -37,20 +37,8 @@ body,
     width: 80%;
 }
 
-.movies>a {
-    width : 50%;
-}
-
-.movies>a:link {
-    text-decoration: none;
-}
-
-.movies>a:hover {
-    text-decoration: underline;
-}
-
 .movies .movie{
-    width : 80%;
+    width : 35%;
     background-color: white;
     margin-bottom: 70px;
     display: flex;
