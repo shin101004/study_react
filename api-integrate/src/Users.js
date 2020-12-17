@@ -7,6 +7,9 @@ function Users() {
     const state = useUsersState();
     const dispatch = useUsersDispatch();
 
+    console.log(state);
+    console.log(dispatch);
+
     const {loading , data:users, error} = state.users;
 
     const fetchData  = () => {
