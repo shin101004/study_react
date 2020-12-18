@@ -22,6 +22,7 @@ const initialTodos = [
         done : false
     }
 ]
+
 // CREATE TOGGLE REMOVE
 function todoReducer(state,action) {
     switch (action.type) {

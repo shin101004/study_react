@@ -10,10 +10,11 @@ const PostTemplateBlocks = styled.div`
     display : flex;
     position : relative;
     flex-direction : column;
-    margin-top : 120px;
+    margin-top : 80px;
     border : 3px solid black;
     border-radius : 16px;
     overflow-y : scroll;
+    padding-bottom : 30px;
 `
 
 function PostTemplate({children}) {

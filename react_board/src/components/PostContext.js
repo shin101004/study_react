@@ -1,11 +1,10 @@
-import React, { createContext, useReducer, useContext, Children} from "react";
+import React, { createContext, useReducer, useContext, useRef} from "react";
 import axios from "axios";
 
 const initialState = {
     posts : {
-
-    data : null,
-    error : null
+        data : null,
+        error : null
     },
     post : {
         data : null,
@@ -13,7 +12,6 @@ const initialState = {
     }
 }
 const success =(data)=>({
-
     data,
     error : null,
 });
@@ -27,27 +25,49 @@ export async function getPosts(dispatch) {
     dispatch({type:'GET_POSTS'});
     try{
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        console.log(response);
+        console.log(response.data);
         dispatch({type:'GET_POSTS_SUCCESS', data : response.data});
     } catch (e) {
         dispatch({type:'GET_POSTS_ERROR', error:e})
     }
 }
 
-export async function getPost({dispatch,id}) {
+export async function getPost(dispatch,id) {
     dispatch({type:'GET_POST'});
     try{
         const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        console.log(response);
+        console.log(response.data);
         dispatch({type:'GET_POST_SUCCESS', data : response.data});
     } catch (e) {
         dispatch({type:'GET_POST_ERROR', error:e})
     }
 }
 
+export async function createPost(dispatch, title, body) {
+    
+    dispatch({type:'CREATE_POST'});
+    try {
+        await axios.post('https://jsonplaceholder.typicode.com/posts',
+            {
+            title : title,
+            body : body
+            }).then(res=> {
+            console.log(res);
+            console.log(res.data);
+        })
+    } catch (e) {
+        dispatch({type:'CREATE_POST_ERROR', error : e});
+    }
+}
+
 export function postsReducer(state, action) {
     switch(action.type) {
+        // GET
         case 'GET_POSTS' : 
             return {
-                ...state
+                ...state,
             }
         case 'GET_POSTS_SUCCESS' :
             return {
@@ -73,6 +93,13 @@ export function postsReducer(state, action) {
                 ...state,
                 post : error(action.error)
             }
+        // POST
+        case 'CREATE_POST' :
+            return true;
+        case 'CREATE_POST_ERROR' :
+            throw new Error(`Unhandled Error`);
+        case 'DELETE_POST' :
+            return state.filter(post=>post.id!==action.id);
         default : {
             throw new Error(`Unhandled Error ${action.error}`);
         }
